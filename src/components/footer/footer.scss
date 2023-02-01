@@ -1,4 +1,8 @@
 .footer {
   background-color: brown;
   color: bisque;
+  padding: 1rem;
+  min-height: 10vh;
+  display: grid;
+  place-content: center;
 }
