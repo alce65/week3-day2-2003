@@ -2,7 +2,9 @@
 import { Footer } from './components/footer/footer';
 import { Header } from './components/header/header';
 import { Menu } from './components/menu/menu';
+import { Tasks } from './components/tasks/tasks';
 import './index.scss';
+import { TASK } from './mocks/tasks';
 
 export type MenuOption = {
   label: string;
@@ -18,4 +20,5 @@ const menuOptions: MenuOption[] = [
 console.log('Load sample');
 new Header('#root');
 new Menu('.header', menuOptions);
+new Tasks('main', TASK);
 new Footer('#root');
