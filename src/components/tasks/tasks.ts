@@ -18,6 +18,7 @@ export class Tasks extends Component {
           <span>${item.isCompleted}</span>
           <span title="${item.id}">${item.name}</span>
           <span>${item.owner}</span>
+          <button>🗑️</button>
         </li>`
       )
       .join('\n');

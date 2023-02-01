@@ -15,7 +15,7 @@ export class Header extends Component {
     return `
       <header class="header">
         <h1>${this.title}</h1>
-        <p>Segundo día</p>
+        <p role="note" aria-label="info">Segundo día</p>
       </header>
     `;
   }
