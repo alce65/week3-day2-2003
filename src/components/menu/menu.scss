@@ -1,0 +1,16 @@
+.menu {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+  }
+  li {
+    padding: 0;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}

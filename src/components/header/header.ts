@@ -1,9 +1,11 @@
+/* eslint-disable no-new */
 /* eslint-disable no-unused-vars */
-import { Component, InsertPosition } from '../component/component';
+
+import { Component } from '../component/component';
 import './header.scss';
 
 export class Header extends Component {
-  constructor(public selector: string) {
+  constructor(public selector: string, public title: string = 'Learning DOM') {
     super();
     this.template = this.createTemplate();
     this.render('afterbegin');
@@ -12,13 +14,13 @@ export class Header extends Component {
   private createTemplate() {
     return `
       <header class="header">
-        <h1>Learning DOM</h1>
+        <h1>${this.title}</h1>
         <p>Segundo día</p>
       </header>
     `;
   }
 
-  render(place: InsertPosition) {
+  render(place: globalThis.InsertPosition) {
     super.render(place);
   }
 }
