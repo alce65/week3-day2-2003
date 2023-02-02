@@ -1,5 +1,7 @@
+/* eslint-disable no-new */
 /* eslint-disable no-unused-vars */
 import { TaskStructure } from '../../models/task';
+import { Card } from '../card/card';
 import { Component } from '../component/component';
 import './tasks.scss';
 
@@ -10,20 +12,14 @@ export class Tasks extends Component {
     this.render('afterbegin');
   }
 
+  render(place: globalThis.InsertPosition) {
+    super.render(place);
+    this.tasks.forEach((item) => {
+      new Card('.tasks>ul', item);
+    });
+  }
+
   createTemplate() {
-    const items = this.tasks
-      .map(
-        (item) => `
-        <li class="card">
-          <span>${item.isCompleted}</span>
-          <span title="${item.id}">${item.name}</span>
-          <span>${item.owner}</span>
-          <button>🗑️</button>
-        </li>`
-      )
-      .join('\n');
-    return `
-    <section class="tasks"><ul>${items}</ul></section>
-    `;
+    return `<section class="tasks"><ul></ul></section>`;
   }
 }
