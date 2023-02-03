@@ -4,7 +4,17 @@ export abstract class Component {
   template!: string;
 
   render(place: globalThis.InsertPosition) {
-    const element = document.querySelector(this.selector) as HTMLElement;
-    element.insertAdjacentHTML(place, this.template);
+    const setElement = {
+      afterbegin: () =>
+        document.querySelector(this.selector)?.firstElementChild,
+      afterend: () => document.querySelector(this.selector)?.nextElementSibling,
+      beforebegin: () =>
+        document.querySelector(this.selector)?.previousElementSibling,
+      beforeend: () => document.querySelector(this.selector)?.lastElementChild,
+    };
+
+    const initialElement = document.querySelector(this.selector) as HTMLElement;
+    initialElement.insertAdjacentHTML(place, this.template);
+    this.element = setElement[place]() as HTMLElement;
   }
 }
