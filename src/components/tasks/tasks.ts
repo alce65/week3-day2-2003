@@ -1,7 +1,7 @@
 /* eslint-disable no-new */
 /* eslint-disable no-unused-vars */
 import { TaskStructure } from '../../models/task';
-import { TaskStorageRepo } from '../../services/repository/task.storage.repo';
+import { TaskApiRepo } from '../../services/repository/task.api.repo';
 import { Add } from '../add/add';
 import { Card } from '../card/card';
 import { Component } from '../component/component';
@@ -9,29 +9,39 @@ import './tasks.scss';
 
 export class Tasks extends Component {
   public tasks: TaskStructure[];
-  constructor(public selector: string, public repo: TaskStorageRepo) {
+  constructor(public selector: string, public repo: TaskApiRepo) {
     super();
-    this.tasks = this.repo.getTasks();
+    this.tasks = [];
     this.template = this.createTemplate();
     this.render('afterbegin');
+    this.load();
   }
 
-  addTask(task: TaskStructure) {
-    this.tasks = [...this.tasks, task];
+  // Read
+  async load() {
+    this.tasks = await this.repo.loadTasks();
     this.render('afterbegin');
-    this.repo.setTasks(this.tasks);
   }
 
-  deleteTask(id: TaskStructure['id']) {
+  // Create
+  async addTask(task: TaskStructure) {
+    const finalTask = await this.repo.createTask(task);
+    this.tasks = [...this.tasks, finalTask];
+    this.render('afterbegin');
+  }
+
+  async deleteTask(id: TaskStructure['id']) {
+    await this.repo.delete(id);
     this.tasks = this.tasks.filter((item) => item.id !== id);
     this.render('afterbegin');
-    this.repo.setTasks(this.tasks);
   }
 
-  updateTask(task: TaskStructure) {
-    this.tasks = this.tasks.map((item) => (item.id === task.id ? task : item));
+  async updateTask(task: TaskStructure) {
+    const finalTask = await this.repo.update(task);
+    this.tasks = this.tasks.map((item) =>
+      item.id === task.id ? finalTask : item
+    );
     this.render('afterbegin');
-    this.repo.setTasks(this.tasks);
   }
 
   render(place: globalThis.InsertPosition) {

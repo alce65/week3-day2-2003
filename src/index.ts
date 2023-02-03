@@ -4,7 +4,7 @@ import { Header } from './components/header/header';
 import { Menu } from './components/menu/menu';
 import { Tasks } from './components/tasks/tasks';
 import './index.scss';
-import { TaskStorageRepo } from './services/repository/task.storage.repo';
+import { TaskApiRepo } from './services/repository/task.api.repo';
 
 export type MenuOption = {
   label: string;
@@ -21,7 +21,7 @@ console.log('Load', location.pathname);
 new Header('#root');
 new Menu('.header', menuOptions);
 if (location.pathname === '/home') {
-  new Tasks('main', new TaskStorageRepo());
+  new Tasks('main', new TaskApiRepo());
 }
 
 new Footer('#root');

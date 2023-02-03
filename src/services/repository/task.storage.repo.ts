@@ -7,7 +7,7 @@ import { TaskStructure } from '../../models/task';
 export class TaskStorageRepo {
   constructor(public storeName: string = 'Tasks') {}
 
-  getTasks(): TaskStructure[] {
+  async getTasks(): Promise<TaskStructure[]> {
     const data = localStorage.getItem(this.storeName);
     if (!data) {
       this.setTasks(TASKS);
